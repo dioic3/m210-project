@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplex Solver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Solucionador Método Simplex</h1>
+
+    <div id="objective-section">
+        <h3>Função Objetivo</h3>
+        <div id="objective-inputs">
+            <input type="number" placeholder="Coeficiente x1" class="obj-coeff">
+            <input type="number" placeholder="Coeficiente x2" class="obj-coeff">
+            <input type="number" placeholder="Coeficiente x3" class="obj-coeff">
+        </div>
+    </div>
+
+    <div id="constraints-section">
+        <h3>Restrições</h3>
+        <div id="constraints-container"></div>
+        <button id="add-constraint" onclick="addConstraint()">Adicionar Restrição</button>
+    </div>
+
+    <h3>Maximizar?</h3>
+    <input type="checkbox" id="maximize">
+
+    <button onclick="solve()">Resolver</button>
+
+    <pre id="output"></pre>
+    <script src="script.js"></script>
+</body>
+</html>

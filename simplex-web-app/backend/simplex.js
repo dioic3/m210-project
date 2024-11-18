@@ -36,6 +36,7 @@ function simplexMethod(c, A_ub, b_ub, A_eq = [], b_eq = [], maximize = false) {
 
     // Resolve o problema
     const result = solver.Solve(problem);
+    result.bounded = result.feasible && !result.unbounded;
     return result;
 }
 

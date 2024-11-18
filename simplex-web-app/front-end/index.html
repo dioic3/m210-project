@@ -7,29 +7,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Solucionador Método Simplex</h1>
+    <div id="main-container">
+        <h1>Solucionador Método Simplex</h1>
 
-    <div id="objective-section">
-        <h3>Função Objetivo</h3>
-        <div id="objective-inputs">
-            <input type="number" placeholder="Coeficiente x1" class="obj-coeff">
-            <input type="number" placeholder="Coeficiente x2" class="obj-coeff">
-            <input type="number" placeholder="Coeficiente x3" class="obj-coeff">
+        <div id="explanation-section">
+            <h3>Como funciona?</h3>
+            <p>Este software resolve problemas de programação linear usando o método Simplex. Insira os coeficientes da função objetivo e as restrições, e clique em "Resolver" para encontrar a solução ótima.</p>
         </div>
+
+        <div id="variable-section">
+            <h3>Quantidade de Variáveis</h3>
+            <input type="number" id="variable-count" value="3" min="1" onchange="updateObjectiveInputs()">
+        </div>
+
+        <div id="objective-section">
+            <h3>Função Objetivo</h3>
+            <div id="objective-inputs">
+                <input type="number" placeholder="Coeficiente x1" class="obj-coeff">
+                <input type="number" placeholder="Coeficiente x2" class="obj-coeff">
+                <input type="number" placeholder="Coeficiente x3" class="obj-coeff">
+            </div>
+        </div>
+
+        <div id="constraints-section">
+            <h3>Restrições</h3>
+            <div id="constraints-container"></div>
+            <button id="add-constraint" onclick="addConstraint()">Adicionar Restrição</button>
+        </div>
+
+        <div id="maximize-section">
+            <h3>Maximizar?</h3>
+            <input type="checkbox" id="maximize">
+        </div>
+
+        <button id="solve-button" onclick="solve()">Resolver</button>
+
+        <pre id="output"></pre>
     </div>
-
-    <div id="constraints-section">
-        <h3>Restrições</h3>
-        <div id="constraints-container"></div>
-        <button id="add-constraint" onclick="addConstraint()">Adicionar Restrição</button>
-    </div>
-
-    <h3>Maximizar?</h3>
-    <input type="checkbox" id="maximize">
-
-    <button onclick="solve()">Resolver</button>
-
-    <pre id="output"></pre>
     <script src="script.js"></script>
 </body>
 </html>

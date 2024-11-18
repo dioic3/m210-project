@@ -1,6 +1,21 @@
 let constraintCount = 0;
 
+function updateObjectiveInputs() {
+    const variableCount = parseInt(document.getElementById("variable-count").value);
+    const objectiveInputs = document.getElementById("objective-inputs");
+    objectiveInputs.innerHTML = "";
+
+    for (let i = 0; i < variableCount; i++) {
+        const input = document.createElement("input");
+        input.type = "number";
+        input.placeholder = `Coeficiente x${i + 1}`;
+        input.classList.add("obj-coeff");
+        objectiveInputs.appendChild(input);
+    }
+}
+
 function addConstraint() {
+    const variableCount = parseInt(document.getElementById("variable-count").value);
     constraintCount++;
 
     const container = document.getElementById("constraints-container");
@@ -9,7 +24,7 @@ function addConstraint() {
     constraintDiv.classList.add("constraint");
 
     // Campos de coeficientes
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < variableCount; i++) {
         const input = document.createElement("input");
         input.type = "number";
         input.placeholder = `Coeficiente x${i + 1}`;
@@ -83,8 +98,27 @@ async function solve() {
         });
 
         const result = await response.json();
-        document.getElementById("output").textContent = JSON.stringify(result, null, 2);
+        const outputElement = document.getElementById("output");
+
+        if (result.feasible && result.bounded) {
+            let outputText = "Solução Ótima Encontrada:\n";
+            outputText += `Valor Ótimo: ${result.result}\n\n`;
+            outputText += "Valores das Variáveis:\n";
+            for (const [variable, value] of Object.entries(result)) {
+                if (variable !== "result" && variable !== "feasible" && variable !== "bounded") {
+                    outputText += `${variable}: ${value}\n`;
+                }
+            }
+            outputElement.textContent = outputText;
+        } else if (!result.bounded) {
+            outputElement.textContent = "A solução não é limitada.";
+        } else {
+            outputElement.textContent = "Não foi possível encontrar uma solução viável.";
+        }
     } catch (error) {
         document.getElementById("output").textContent = "Erro ao resolver o problema.";
     }
 }
+
+// Inicializa os campos de entrada da função objetivo
+updateObjectiveInputs();

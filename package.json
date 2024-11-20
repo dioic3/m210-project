@@ -1,0 +1,27 @@
+{
+  "name": "m210-project",
+  "version": "1.0.0",
+  "description": "Este projeto é uma aplicação que resolve problemas de programação linear usando o método Simplex. A aplicação permite que os usuários insiram coeficientes para a função objetivo e restrições, e obtenham a solução ótima.",
+  "main": "aa.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dioic3/m210-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dioic3/m210-project/issues"
+  },
+  "homepage": "https://github.com/dioic3/m210-project#readme",
+  "dependencies": {
+    "document": "^0.4.7",
+    "javascript-lp-solver": "^0.4.24",
+    "jquery": "^3.7.1",
+    "jsdom": "^25.0.1",
+    "mathjs": "^14.0.0",
+    "readline": "^1.3.0"
+  }
+}

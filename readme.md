@@ -1,76 +1,116 @@
-# Simplex Solver
+# Método Simplex com Interface Gráfica
 
-Este projeto é uma aplicação web que resolve problemas de programação linear usando o método Simplex. A interface permite que os usuários insiram coeficientes para a função objetivo e restrições, e obtenham a solução ótima.
+## Descrição Geral
+Este projeto implementa o Método Simplex para resolver problemas de otimização linear. Ele utiliza a biblioteca Tkinter para criar uma interface gráfica de usuário (GUI) que permite configurar e calcular o problema. O programa aceita como entrada o número de variáveis e restrições, os coeficientes da função objetivo e das restrições, e calcula a solução ótima, o valor máximo da função objetivo, e os preços sombra.
 
-## Estrutura do Projeto
+## Requisitos
+Certifique-se de instalar os seguintes pacotes antes de executar o código. As dependências estão listadas no arquivo `requirements.txt`:
 
-A estrutura do projeto é a seguinte:
-
+```plaintext
+numpy==<versão>
+tk==<versão>
 ```
-├── m210-project/
-├── code-simplex.py
-└── readme.md
+
+Instale os requisitos com:
+
+```bash
+pip install -r requirements.txt
 ```
 
-## Pré-requisitos
+## Estrutura do Código
 
-- Node.js
-- Gerenciador de pacotes npm ou yarn
-- Python 3.x
-- Bibliotecas Python: `numpy`, `tkinter`
+### Importação de Bibliotecas
+- `numpy`: Para manipulação de arrays e cálculos numéricos.
+- `tkinter`: Para criação da interface gráfica.
+- `messagebox`: Para exibir mensagens de erro ou informações ao usuário.
 
-## Como Executar
+### Funções Principais
 
-### Passos
+#### obter_dados
+- Coleta e valida os dados inseridos na GUI.
+- Retorna os coeficientes da função objetivo, as restrições e os valores constantes.
 
-1. Clone o repositório:
+#### simplex
+- Implementa o algoritmo do Método Simplex.
+- Resolve o problema de otimização linear, retornando:
+    - A solução ótima.
+    - O valor máximo da função objetivo.
+    - Os preços sombra.
 
-    ```bash
-    git clone https://github.com/dioic3/m210-project.git
-    cd m210-project
-    ```
+#### iniciar_calculo
+- Conecta a interface gráfica com a lógica do Método Simplex.
+- Exibe o resultado na interface.
 
-2. Instale as dependências do Python:
+### Função main
+- Configura e inicializa a interface gráfica.
+- Permite ao usuário:
+    - Inserir o número de variáveis e restrições.
+    - Adicionar os coeficientes necessários.
+    - Calcular os resultados.
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+## Execução
+O programa é executado a partir da função `main`, que inicializa a GUI.
 
-3. Execute a aplicação Python:
+## Fluxo de Execução
+1. O usuário executa o programa.
+2. Na interface:
+     - Insere o número de variáveis e restrições.
+     - Clica no botão "Criar Campos" para gerar os campos de entrada necessários.
+     - Preenche os coeficientes da função objetivo e das restrições.
+     - Clica em "Calcular".
+3. O programa valida os dados e realiza o cálculo usando o Método Simplex.
+4. O resultado (solução ótima, valor ótimo e preços sombra) é exibido em uma janela pop-up.
 
-    ```bash
-    python code-simplex.py
-    ```
+## Detalhes do Algoritmo Simplex
 
-## Como Usar
+### Entrada:
+- Vetor de coeficientes da função objetivo (`funcObj`).
+- Matriz de coeficientes das restrições (`restric`).
+- Vetor dos termos constantes das restrições (`const`).
 
-1. Insira a quantidade de variáveis.
-2. Insira os coeficientes da função objetivo.
-3. Adicione as restrições necessárias.
-4. Marque a opção "Maximizar" se desejar maximizar a função objetivo.
-5. Clique em "Resolver" para obter a solução.
+### Processo:
+- Constrói o tableau inicial adicionando variáveis de folga.
+- Itera até encontrar uma solução ótima ou detectar inconsistências.
+- Utiliza operações de pivô para ajustar o tableau.
 
-## Explicação do Código
+### Saída:
+- Vetor de solução (`solucao`).
+- Valor máximo da função objetivo (`valorOtimo`).
+- Preços sombra (`precoSombra`).
 
-O arquivo `code-simplex.py` contém uma implementação do método Simplex usando Python e a biblioteca `tkinter` para a interface gráfica. Aqui está um resumo das principais funções:
+## Interface Gráfica
 
-- `obter_dados(entry_vars, entry_cons, entry_obj)`: Coleta os dados de entrada do usuário e os converte em arrays NumPy.
-- `simplex(funcObj, restricoes, constantes)`: Implementa o algoritmo Simplex para encontrar a solução ótima.
-- `iniciar_calculo(entry_vars, entry_cons, entry_obj)`: Inicia o cálculo chamando `obter_dados` e `simplex`, e exibe os resultados.
-- `main()`: Configura a interface gráfica usando `tkinter` e define os campos de entrada e botões.
+### Entradas:
+- Número de variáveis.
+- Número de restrições.
+- Coeficientes da função objetivo.
+- Coeficientes e constantes das restrições.
 
-## Tecnologias Utilizadas
+### Botões:
+- "Criar Campos": Gera os campos de entrada para os dados.
+- "Calcular": Executa o cálculo e exibe o resultado.
 
-- `javascript-lp-solver`: Biblioteca para resolver problemas de programação linear.
-- `Express.js`: Framework para construção de servidores web em Node.js.
-- `CORS`: Middleware para habilitar requisições entre diferentes origens.
-- `tkinter`: Biblioteca para criação de interfaces gráficas em Python.
-- `NumPy`: Biblioteca para operações matemáticas em Python.
+## Exemplo de Uso
+1. Execute o programa.
+2. Insira 2 como número de variáveis e 2 como número de restrições.
+3. Clique em "Criar Campos".
+4. Insira os coeficientes:
+     - Função objetivo: 3, 5.
+     - Restrições:
+         - 1, 0 e constante 4.
+         - 0, 2 e constante 12.
+5. Clique em "Calcular".
+6. O resultado será exibido como:
 
-## Contribuição
+```plaintext
+Solução Ótima: [4.0, 6.0]
+Lucro Ótimo: 38.0
+Preços Sombra: [0.0, 1.0]
+```
 
-Sinta-se à vontade para contribuir com melhorias para este projeto. Faça um fork do repositório, crie uma branch para suas alterações e envie um pull request.
+## Erros Comuns
+- Valores inválidos: Insira números válidos nos campos de entrada para evitar erros.
+- Número de variáveis/restrições inconsistente: Certifique-se de criar campos antes de calcular.
 
-## Licença
-
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+## Considerações Finais
+Este programa é uma aplicação prática para resolver problemas de otimização linear, útil para estudantes e profissionais. A modularidade e clareza do código facilitam futuras melhorias ou adaptações.
